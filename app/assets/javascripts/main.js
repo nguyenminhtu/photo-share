@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
-	var baseUrl = "http://localhost:3000/";
+	// var baseUrl = "http://localhost:3000/";
+	var baseUrl = "https://evening-cove-86299.herokuapp.com/";
 	$(document).ready(function () {
 
 		// function for load more
