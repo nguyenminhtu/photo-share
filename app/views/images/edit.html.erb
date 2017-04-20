@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col m8 offset-m2">
+		<h3 class="center-align">Edit Image <small><i><%= @image.title %></i></small></h3>
+		<hr>
+
+		<div class="input-field">
+			<label for="current-image">Current Image</label>
+			<%= image_tag(@image.picture.url, class: 'materialboxed image-edit', id: 'current-image') if @image.picture? %>
+		</div>
+
+		<%= render "form" %>
+	</div>
+</div>

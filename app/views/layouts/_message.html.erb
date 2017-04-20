@@ -1,0 +1,7 @@
+<% flash.each do |type, message| %>
+  <script>
+    $(function() {
+      Materialize.toast("<%= message.html_safe %>", 5000);
+    });
+  </script>
+<% end %>

@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col m12 s12 center-align">
+		<p><strong>Email: </strong><%= @user.email %></p>
+		<p><%= pluralize(@images.count, "image") %></p>
+		<p><strong>Name: </strong><%= @user.name %></p>
+	</div>
+	<hr>
+</div>
+
+<% @images.each do |image| %>
+
+	<div class="row">
+		<div class="col m8 offset-m2">
+			<div class="card z-depth-3 hoverable">
+				<div class="card-image">
+					<%= image_tag(image.picture.url, class: 'materialboxed', style: 'height: 200px') %>
+					<span class="card-title"><%= image.title %></span>
+				</div>
+
+				<div class="card-content">
+					<p><%= truncate(image.description, length: 50) %></p>
+				</div>
+
+				<div class="card-action">
+					<%= link_to like_image_path(image), method: :put, class: 'btn waves-effect waves-light' do %>
+			            <%= image.get_upvotes.size %>
+			            <i class="material-icons">thumb_up</i>
+			         <% end %>
+
+			         <%= link_to dislike_image_path(image), method: :put, class: 'btn waves-effect waves-light' do %>
+			            <%= image.get_downvotes.size %>
+			            <i class="material-icons">thumb_down</i>
+			         <% end %>
+
+			          <%= link_to "Remove", image_path(image), method: :delete, data: { confirm: 'Are u sure want to delete this images ?' }, class: 'btn waves-effect waves-light red right' %>
+			          <%= link_to "Edit", edit_image_path(image), class: 'btn waves-effect waves-light yellow right' %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<% end %>

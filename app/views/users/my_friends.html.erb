@@ -1,0 +1,32 @@
+<%= render "common/lookup" %>
+
+<% if @friends.size > 0 %>
+
+	<table class="centered highlight responsive-table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @friends.each do |fr| %>
+				<tr>
+					<td><%= fr.name %></td>
+					<td><%= fr.email %></td>
+					<td>
+						<%= link_to "View Profile", user_path(fr), class: 'btn waves-effect waves-dark green' %>
+						<%= link_to "Unfollow", friendship_path(fr), method: :delete, data: { confirm: 'Are u sure want to unfollow friend ?' }, class: 'btn waves-effect waves-dark red' %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<% else %>
+
+	<h5 class="center-align">You don't have any friends yet. Please add some!</h5>
+
+<% end %>

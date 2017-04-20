@@ -1,0 +1,14 @@
+<%= form_for([@image, @image.comments.build]) do |f| %> 
+
+	<div class="row">
+        <div class="input-field">
+          	<i class="material-icons prefix">mode_edit</i>
+        	<%= f.text_area :content, id: 'icon_prefix2', class: 'materialize-textarea', required: true, placeholder: 'Comment here' %>
+        </div>
+
+        <div class="input-field">
+        	<%= f.submit "Post comment", class: 'btn waves-effect waves-light', style: 'margin-left: 42px;' %>
+        </div>
+      </div>
+
+<% end %>

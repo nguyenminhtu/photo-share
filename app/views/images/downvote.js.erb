@@ -1,0 +1,2 @@
+$("span#dislike_image_"+<%= @id %>).html(<%= @image.get_downvotes.size %>);
+$("span#image_"+<%= @id %>).html(<%= @image.get_upvotes.size %>);

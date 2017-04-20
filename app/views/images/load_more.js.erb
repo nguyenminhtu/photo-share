@@ -1,0 +1,5 @@
+<% if @images.size < 9 %>
+	$("button#load-more").hide();
+<% end %>
+
+$('#main').append('<%= j(render(:partial => @images)) %>');

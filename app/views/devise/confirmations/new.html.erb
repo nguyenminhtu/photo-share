@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<div class="col m10 s12">
+			<h3>Resend confirmation instructions</h3>
+			<hr>
+
+			<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+			  <% if notice %>
+				<script type="text/javascript">
+				  Materialize.toast('<%= notice %>', 4000)
+				</script>
+			<% end %>
+			<% if alert %>
+				<script type="text/javascript">
+				  Materialize.toast('<%= alert %>', 4000)
+				</script>
+			<% end %>
+
+			  <div class="input-field">
+			    <%= f.label :email %><br />
+			    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+			  </div>
+
+			  <div class="actions">
+			    <%= f.submit "Resend confirmation instructions", class: 'btn waves-effect waves-dark' %>
+			  </div>
+			<% end %>
+
+			<%= render "devise/shared/links" %>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,16 @@
+<% if obj.errors.any? %>
+
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header red-text"><i class="material-icons">error</i><%= pluralize(obj.errors.count, "error") %> prohibited this image from being saved:</div>
+        <div class="collapsible-body">
+          <ul class="red-text">
+            <% obj.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+<% end %>

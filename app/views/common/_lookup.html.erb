@@ -1,0 +1,65 @@
+<div class="row">
+	<div id="user-lookup">
+		<h4 class="center-align">Search for friends</h4>
+		<hr>
+
+		<div class="row">
+			<div class="nav-wrapper">
+				<%= form_tag search_user_path, remote: true, method: :get, id: 'user-lookup-form' do %>
+
+					<div class="input-field">
+						<%= search_field_tag :search_param, params[:search_param], placeholder: 'Search here...', required: true, id: 'search' %>
+						<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+				         <i class="material-icons closed">close</i>
+					</div>
+
+				<% end %>
+			</div>
+		</div>
+
+		<div class="row">
+			<%= render "layouts/spinner" %>
+		</div>
+
+		<% if @users %>
+
+			<% if @users.size > 0 %>
+
+				<div class="row">
+					<div id="user-search-result" class="card-panel">
+						<table class="centered hoverable highlight">
+							<tbody>
+								<% @users.each do |user| %>
+									<tr>
+										<td><strong>Name:  </strong><%= user.name %></td>
+										<td><strong>Email:  </strong><%= user.email %></td>
+										<td><strong>Actions:  </strong>
+											<%= link_to "View Profile", user_path(user), class: 'btn waves-effect waves-dark green' %>
+										
+											<% if current_user.not_friend_with?(user.id) %>
+												<%= link_to "Follow", add_friend_path(user: current_user, friend: user), 
+																			class: 'btn btn-xs btn-primary', method: :post %>
+											<% else %>
+												<span class="badge blue white-text left" style="margin-top: 10px;">You are friends.</span>
+											<% end %>
+										</td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			<% else %>
+
+				<p class="center-align red-text">No user match for this search criteria !</p>
+
+			<% end %>
+
+		<% end %>
+
+
+		<div id="user-search-error"></div>
+
+	</div>
+</div>

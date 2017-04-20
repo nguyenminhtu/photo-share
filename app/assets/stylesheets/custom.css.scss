@@ -1,0 +1,45 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "materialize/components/color";
+$primary-color: color("blue-grey", "darken-4") !default;
+$secondary-color: color("blue-grey", "darken-4") !default;
+@import 'materialize';
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #e1e1e1;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.nav-wrapper .input-field input[id=search] {
+  height: 64px;
+}
+.nav-wrapper input[id="search"]:focus {
+ 
+  width: 95%;
+}
+.input-field label {
+  max-height: 64px;
+}
+.nav-wrapper input[id="search"]:focus ~ .label-icon.active {
+  color: #000;
+  margin-top: 10px;
+  left: 18px;
+}
+.nav-wrapper input[id="search"]:focus ~ .closed {
+  color: #000;
+  margin-top: 20px;
+  right: 7px;
+}
+
+.image-edit{width: 100%; height: auto;}
+
+.material-icons{
+  font-size: 20px !important;
+}
+
+div#main .card .card-image img{height: 230px !important;}

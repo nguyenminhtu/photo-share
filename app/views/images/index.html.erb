@@ -1,0 +1,15 @@
+<div class="row">
+
+  <div id="main">
+    <%= render @images %>
+  </div>
+
+  <div class="row clearfix">
+    <br><br>
+    <div class="center-align">
+      <button class="btn waves-effect waves-light" type="button" id="load-more">Load more</button>
+      <%= render "layouts/spinner" %>
+    </div>
+  </div>
+
+</div>
