@@ -1,8 +1,20 @@
 <div class="row">
-	<div class="col m12 s12 center-align">
+	<div class="col m6 offset-m3 s12 center-align">
 		<p><strong>Email: </strong><%= @user.email %></p>
-		<p><%= pluralize(@images.count, "image") %></p>
-		<p><strong>Name: </strong><%= @user.name %></p>
+		<p><%= pluralize(@images.count, "image") %> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <%= pluralize(@user.friends.count, "follower") %></p>
+		<p>
+			<span class="left"><strong>Name: </strong><%= @user.name %></span>
+			<% if current_user.friendships.where(friend_id: @user.id).size == 0 %>
+				<span class="right">
+					<button class="btn waves-effect waves-dark" id-user="<%= current_user.id %>" id-follow="<%= @user.id %>" id="follow-user" type="button">Follow</button>
+				</span>
+			<% else %>
+				<span class="right">
+					<button class="btn waves-effect waves-dark" id-unfollow="<%= @user.id %>" id="unfollow-user" type="button">Unfollow</button>
+				</span>
+			<% end %>
+		</p>
+		<div class="clearfix"></div>
 		<p><%= link_to "Back", :back, class: 'btn waves-effect waves-dark blue' %></p>
 	</div>
 	<hr>

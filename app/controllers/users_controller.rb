@@ -2,7 +2,12 @@ class UsersController < ApplicationController
 
 	def my_profile
 		@user = current_user
-		@images = @user.images
+		@count = @user.images.order("created_at DESC").count
+		if @count > 9
+			@images = @user.images.order("created_at DESC").limit(9)
+		else
+			@images = @user.images.order("created_at DESC").limit(@count)
+		end
 	end
 
 	def my_friends
@@ -30,10 +35,23 @@ class UsersController < ApplicationController
 		current_user.friendships.build(friend_id: @friend.id)
 
 		if current_user.save
-			redirect_to my_friends_path, notice: "You are now followed your friend"
-		else
-			redirect_to my_friends_path
-			flash[:error] = "There was an error with adding user as your friend. Sorry for in convenience !"
+			respond_to do |format|
+				format.html { redirect_to my_friends_path, notice: "You have follow successfully !" }
+				format.js
+			end
+		end
+	end
+
+
+	def more_image
+		if params[:id]
+			if params[:id].to_i > Image.first.id
+				@images = Image.where(user_id: current_user.id).where("id < ?", params[:id]).limit(3).order("created_at DESC")
+			end
+		end
+
+		respond_to do |format|
+			format.js
 		end
 	end
 

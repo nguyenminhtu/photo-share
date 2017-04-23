@@ -2,11 +2,24 @@
 <html>
 <head>
   <title>iPhotoShare</title>
+  <!-- <meta property="og:url" content="tudeptrai"></meta>
+  <meta property="og:type" content="website"></meta>
+  <meta property="og:title" content="I'm hero"></meta>
+  <meta property="og:description" content="this website is awesome!"></meta> -->
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9&appId=123685151512642";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <%= render "layouts/navigation" %>
 
@@ -23,7 +36,9 @@
 
 <%= render "layouts/footer" %>
 
+
 <%= debug(params) if Rails.env.development? %>
 
 </body>
 </html>
+

@@ -1,14 +1,14 @@
 class User < ActiveRecord::Base
 	default_scope { order('created_at DESC') }
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+# Include default devise modules. Others available are:
+# :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	has_many :images
-	has_many :friendships
-	has_many :friends, through: :friendships
-	has_many :comments
+	has_many :images, dependent: :destroy
+	has_many :friendships, dependent: :destroy
+	has_many :friends, through: :friendships, dependent: :destroy
+	has_many :comments, dependent: :destroy
 
 
 	def not_friend_with?(friend_id)

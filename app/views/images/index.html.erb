@@ -1,17 +1,31 @@
 <div class="row">
 
-  <div id="main">
-    <%= render @images %>
-  </div>
+  <% if @images.any? %>
 
-  <% if @images.size > 9 %>
-    <div class="row clearfix">
-      <br><br>
-      <div class="center-align">
-        <button class="btn waves-effect waves-light" type="button" id="load-more">Load more</button>
-        <%= render "layouts/spinner" %>
-      </div>
+    <div id="main">
+      <%= render @images %>
     </div>
+
+    <% if @count > 9 %>
+
+      <div class="row clearfix">
+        <br><br>
+        <div class="center-align">
+          <button class="btn waves-effect waves-light" type="button" id="load-more">Load more</button>
+          <%= render "layouts/spinner" %>
+        </div>
+      </div>
+
+    <% end %>
+
+  <% else %>
+
+    <div class="center-align">
+      <h5 class="center-align">Follow some one to see all pictures they shared or you can post some images ^^ </h5>
+      <%= link_to "Post Image", new_image_path, class: 'btn waves-effect waves-light' %>
+      <%= link_to "Find Someone", my_friends_path, class: 'btn waves-effect waves-light' %>
+    </div>
+
   <% end %>
 
 </div>

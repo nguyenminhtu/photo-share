@@ -1,0 +1,38 @@
+<div id="post-image" class="modal">
+	<div class="modal-content">
+	  	<div class="row">
+			<div class="col m8 offset-m2">
+				<h3 class="center-align">Add Image</h3>
+				<hr>
+
+				<%= form_tag images_path, method: :post, multipart: true, remote: true, id: 'post-image-form' do %>
+
+					<div class="input-field">
+						<label for="image_title" class="">Title</label>
+						<input autofocus="autofocus" required="required" type="text" name="image[title]" id="image_title">
+					</div>
+
+					<div class="input-field">
+						<label for="image_description">Description</label>
+						<textarea required="required" rows="20" class="materialize-textarea" name="image[description]" id="image_description"></textarea>
+					</div>
+
+					<div class="file-field input-field">
+				      <div class="btn">
+				        <span>Image</span>
+				        <input type="file" name="image[picture]" id="image_picture">
+				      </div>
+				      <div class="file-path-wrapper">
+				        <input class="file-path validate" type="text">
+				      </div>
+				    </div>
+
+					<div class="input-field">
+						<input type="submit" name="commit" value="Create" class="btn waves-effect waves-dark">
+					</div>
+
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

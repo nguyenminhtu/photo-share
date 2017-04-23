@@ -11,9 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks 
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize-sprockets
+//= require turbolinks
 //= require_tree .
 
 function show_spinner() {

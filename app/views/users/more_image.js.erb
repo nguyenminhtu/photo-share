@@ -1,0 +1,11 @@
+<% if @images.size < 9 %>
+
+	$("button.loadmore-image").hide();
+
+<% else %>
+
+	$("button.loadmore-image").show();
+
+<% end %>
+
+$("div#my-profile").append('<%= j(render(:partial => @images)) %>');

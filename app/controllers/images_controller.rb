@@ -10,10 +10,18 @@ class ImagesController < ApplicationController
 			@arr.push(user.id)
 		end
 		@arr.push(current_user.id)
-		@images = Image.all.where(user_id: @arr).order("created_at DESC").limit(9)
+		@count = Image.all.where(user_id: @arr).order("created_at DESC").count
+		if @count >= 9
+			@images = Image.all.where(user_id: @arr).order("created_at DESC").limit(9)
+		else
+			@images = Image.all.where(user_id: @arr).order("created_at DESC").limit(@count)
+		end
 	end
 
 	def show
+		@count = @image.comments.order("created_at DESC").count
+		@comments = @image.comments.order("created_at DESC").limit(10)
+		# debugger 
 	end
 
 	def new
@@ -25,8 +33,8 @@ class ImagesController < ApplicationController
 		@image.user = current_user
 
 		if @image.save
-			redirect_to image_path(@image)
-			flash[:success] = 'Image was created successfully'
+			redirect_to root_path
+			flash[:success] = "Image was created successfully"
 		else
 			render 'new'
 		end
@@ -58,7 +66,6 @@ class ImagesController < ApplicationController
 		@id = @image.id
 		# debugger
 		respond_to do |format|
-			format.html
 			format.js
 		end
 	end
@@ -68,18 +75,36 @@ class ImagesController < ApplicationController
 		@id = @image.id
 		# debugger
 		respond_to do |format|
-			format.html
 			format.js
 		end
 	end
 
 	def load_more
+		@users = current_user.friends
+		@arr = []
+		@users.each do |user|
+			@arr.push(user.id)
+		end
+		@arr.push(current_user.id)
 		if params[:id]
 			if (params[:id]).to_i > (Image.first.id).to_i
-				@images = Image.where('id < ?', params[:id]).limit(9).order("created_at DESC")
+				@images = Image.where(user_id: @arr).where('id < ?', params[:id]).limit(9).order("created_at DESC")
+			end
+		end
+		respond_to do |format|
+			format.html
+			format.js
+		end
+	end
+
+	def more_comment
+		if params[:id] and params[:image_id]
+			if (params[:id]).to_i > (Comment.first.id).to_i
+				@comments = Comment.where(image_id: params[:image_id]).where('id < ?', params[:id]).limit(10).order("created_at DESC")
 			end
 			# debugger
 		end
+		# debugger
 		respond_to do |format|
 			format.html
 			format.js

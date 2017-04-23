@@ -1,0 +1,7 @@
+<% if @comments.count < 10 %>
+	$("button.loadmore-comment").hide();
+<% else %>
+	$("button.loadmore-comment").show();
+<% end %>
+
+$("div#comment_append_<%= params[:image_id] %>").append('<%= j(render(:partial => @comments)) %>');

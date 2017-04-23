@@ -43,3 +43,13 @@ main {
 }
 
 div#main .card .card-image img{height: 230px !important;}
+
+$size: 44px;
+
+.social-share-button {
+  .ssb-icon {
+    background-size: $size $size;
+    height: $size;
+    width: $size;
+  }
+}

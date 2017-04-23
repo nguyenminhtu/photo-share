@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'search_user', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'
   get 'load_more', to: 'images#load_more'
+  get 'more-comment', to: 'images#more_comment'
+  get 'more-image', to: 'users#more_image'
   resources :users, only: [:show]
   resources :friendships, only: [:destroy]
 

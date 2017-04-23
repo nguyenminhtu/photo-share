@@ -2,7 +2,7 @@
 
 <% if @friends.size > 0 %>
 
-	<table class="centered highlight responsive-table">
+	<table class="centered highlight responsive-table" id="table-friendship">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -12,13 +12,14 @@
 		</thead>
 
 		<tbody>
-			<% @friends.each do |fr| %>
-				<tr>
-					<td><%= fr.name %></td>
-					<td><%= fr.email %></td>
+			<% @friends.each do |friend| %>
+				<tr id="friend_<%= friend.id %>">
+					<td><%= friend.name %></td>
+					<td><%= friend.email %></td>
 					<td>
-						<%= link_to "View Profile", user_path(fr), class: 'btn waves-effect waves-dark green' %>
-						<%= link_to "Unfollow", friendship_path(fr), method: :delete, data: { confirm: 'Are u sure want to unfollow friend ?' }, class: 'btn waves-effect waves-dark red' %>
+						<%= link_to "View Profile", user_path(friend), class: 'btn waves-effect waves-dark green' %>
+
+						<a href="javascript:void(0)" id="unfollow" id-friend="<%= friend.id %>" class="btn waves-effect waves-dark red">Unfollow</a>
 					</td>
 				</tr>
 			<% end %>
@@ -30,3 +31,4 @@
 	<h5 class="center-align">You don't have any friends yet. Please add some!</h5>
 
 <% end %>
+<div id="notice-friendship"></div>

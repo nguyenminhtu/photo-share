@@ -1,10 +1,48 @@
 
 <div class="card hoverable z-depth-2">
-		<% if comment.user && comment.created_at && comment.content %>
-			<div class="card-content" id="<%= comment.id %>">
-				<p><strong><%= comment.user.name %></strong></p>
-				<p><small><em><%= time_ago_in_words(comment.created_at) %> ago</em></small></p>
-				<p style="margin-top: 7px;"><%= comment.content %></p>
+		<% if comment.user && comment.created_at && comment.content && comment.image.user %>
+			<div class="card-content comment-record" id="comment_id_<%= comment.id %>" data-id="<%= comment.id %>">
+				<div class="left">
+					<p><strong><%= comment.user.name %></strong></p>
+					<p><small><em><%= time_ago_in_words(comment.created_at) %> ago</em></small></p>
+					<p id="comment_edit_<%= comment.id %>" style="margin-top: 7px;"><%= comment.content %></p>
+				</div>
+				<% if comment.user == current_user %>
+
+					<div class="right">
+						<a href="#modal_comment_<%= comment.id %>" class="modal-trigger btn waves-effect waves-light yellow">
+							<i class="material-icons">edit</i>
+						</a>
+						<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
+							<i class="material-icons">delete</i>
+						</a>
+					</div>
+
+				<% elsif comment.image.user == current_user %>
+
+					<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment right" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
+							<i class="material-icons">delete</i>
+						</a>
+
+				<% end %>
+				<div class="clearfix"></div>
+			</div>
+
+			<div id="modal_comment_<%= comment.id %>" class="modal">
+			    <div class="modal-content">
+
+					<div class="row">
+				        <div class="input-field">
+				          	<i class="material-icons prefix">mode_edit</i>
+				        	<textarea class="materialize-textarea"><%= comment.content %></textarea>
+				        </div>
+
+				        <div class="input-field">
+				        	<button id-edit-comment="<%= comment.id %>" id-edit-comment-image="<%= comment.image.id %>" type="button" class="btn waves-effect waves-light update-comment" style='margin-left: 42px;'>Save changes</button>
+				        </div>
+				      </div>
+
+			    </div>
 			</div>
 		<% end %>
 </div>

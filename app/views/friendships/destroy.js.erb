@@ -1,0 +1,13 @@
+$("tr#friend_"+<%= params[:id] %>).remove();
+
+<% if current_user.friends.size == 0 %>
+	
+	$("table#table-friendship").hide();
+	$("div#notice-friendship").html("<h5 class='center-align'>You don't have any friends yet. Please add some!</h5>");
+
+<% end %>
+
+
+$("button#unfollow-user").hide();
+var id = <%= params[:id] %>;
+$("span.right").html("<button class='btn waves-effect waves-dark' id-follow='"+id+"' id='follow-user' type='button'>Follow</button>");

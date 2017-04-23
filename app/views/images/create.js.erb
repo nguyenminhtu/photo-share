@@ -1,0 +1,5 @@
+<% if @image.save %>
+
+	$('#main').prepend('<%= j(render(:partial => @image)) %>');
+
+<% end %>
