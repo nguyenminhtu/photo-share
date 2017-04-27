@@ -1,6 +1,8 @@
-<%= form_for([@image, @image.comments.build]) do |f| %> 
+<%= form_for([@image, @image.comments.build], html: { id: 'form-add-comment', remote: true }) do |f| %> 
 
 	<div class="row">
+		<input type="hidden" name="user_id" value="<%= current_user.id %>">
+		<input type="hidden" name="image_id" value="<%= @image.id %>">
         <div class="input-field">
           	<i class="material-icons prefix">mode_edit</i>
         	<%= f.text_area :content, id: 'icon_prefix2', class: 'materialize-textarea', required: true, placeholder: 'Comment here' %>
@@ -12,3 +14,5 @@
       </div>
 
 <% end %>
+
+<%= render "layouts/spinner" %>

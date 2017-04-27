@@ -29,6 +29,8 @@ gem 'devise'
 gem 'carrierwave'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'social-share-button'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-materialize', '~> 0.1.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,1 +1,2 @@
-$("div#comment_"+<%= @comment.id %>).hide('slow');
+$("div#comment_id_"+<%= @comment.id %>).hide('slow');
+$("span#count-comment-<%= params[:image_id] %>").html(parseInt($("span#count-comment-<%= params[:image_id] %>").html()) - 1);

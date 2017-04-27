@@ -2,12 +2,21 @@
 	<div class="row">
 		<div class="col m12 s12 l12">
 			<div class="card z-depth-4">
+
 	            <div class="card-image">
 	              <%= image_tag(@image.picture.url, class: 'materialboxed') if @image.picture %>
 	              <span class="card-title"><%= @image.title %></span>
 	            </div>
 	            <div class="card-content">
 	              <p><%= @image.description %></p>
+	              <br>
+	              <!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-590191597a4e9325"></script> 
+	              <!-- <p>
+	              	<div class="fb-share-button right" data-href="https://evening-cove-86299.herokuapp.com/images/<%= @image.id %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftu-nguyen.firebaseapp.com%2Fpost%2F588cc8874220e81e143c9639&amp;src=sdkpreparse">Chia sẻ</a></div>
+
+	            	<div class="fb-like left" data-href="https://evening-cove-86299.herokuapp.com" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+	              </p> -->
+	              <div class="clearfix"></div>
 	            </div>
 	            <div class="card-action">
 	              By: <strong><%= @image.user.name %></strong>
@@ -26,18 +35,21 @@
 	            <br>
 	            <%= link_to "Back", :back, class: 'btn waves-effect waves-dark center-align' %>
 
-	            <div class="fb-share-button" data-href="http://localhost:3000/images/22" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fimages%2F22&amp;src=sdkpreparse">Chia sẻ</a></div>
+	            <div class="clearfix"></div>
+
+
 
 	            <% if current_user and (@image.user == current_user) %>
 	            	<%= link_to "Delete", image_path(@image), method: :delete, data: { confirm: 'Are you sure want to delete this picture ?' }, class: 'btn waves-effect waves-dark red right' %>
 					<%= link_to "Edit", edit_image_path(@image), class: 'btn waves-effect waves-dark right yellow' %>
 	            <% end %>
+
 	        </div>
 
 	        <div id="comment_<%= @image.id %>">
 	        	<div class="card hoverable">
 	        		<div class="card-content">
-		        		<h4><%= @image.comments.count %> comments</h4>
+		        		<h4><span id="count-comment-<%= @image.id %>"><%= @image.comments.count %></span> comments</h4>
 		        		<hr>
 		        		<br>
 		        		<%= render "comments/form" %>

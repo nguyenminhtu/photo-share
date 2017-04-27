@@ -13,6 +13,9 @@
 
 								<li><%= link_to "Post Image", new_image_path %></li>
 								<li><%= link_to "My Friends", my_friends_path %></li>
+								<% if is_admin? %>
+									<li><%= link_to "Admin", admin_root_path %></li>
+								<% end %>
 								<li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= current_user.name %><i class="material-icons right">arrow_drop_down</i></a></li>
 								<ul id="dropdown1" class="dropdown-content">
 									<li><%= link_to "Profile", my_profile_path %></li>

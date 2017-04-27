@@ -1,0 +1,5 @@
+$("form#form-add-comment").show();
+$("div#comment_append_<%= params[:image_id] %>").prepend('<%= j(render(:partial => @comment)) %>');
+$("span#count-comment-<%= params[:image_id] %>").html(parseInt($("span#count-comment-<%= params[:image_id] %>").html()) + 1);
+Materialize.toast("Comment was posted successfully", 4000);
+$(".modal").modal();

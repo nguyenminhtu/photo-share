@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col m12">
+		<table class="hoverable centered highlight white bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Image Title</th>
+					<th>User</th>
+					<th>Content</th>
+					<th>Created At</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @comments.each do |comment| %>
+
+					<tr id="admin_comment_<%= comment.id %>">
+						<td><%= comment.id %></td>
+						<td><%= comment.image.title %></td>
+						<td><%= comment.user.name %></td>
+						<td><a href="#view-content-<%= comment.id %>"><%= truncate(comment.content, length: 30) %></a></td>
+						<td><%= time_ago_in_words(comment.created_at) %> ago</td>
+						<td class="center-align">
+							<a data-id="<%= comment.id %>" href="javascript:void(0)" class="btn waves-effect waves-dark red admin-remove-comment">Remove</a>
+							<%= render "layouts/spinner" %>
+						</td>
+					</tr>
+
+
+					<!-- modal to show full content -->
+					<div id="view-content-<%= comment.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <%= comment.content.html_safe %>
+
+						        <a data-id="<%= comment.id %>" href="javascript:void(0)" class="btn waves-effect waves-dark red right admin-remove-comment">Remove</a>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view full content of comment -->
+
+
+				<% end %>
+			</tbody>
+		</table>
+		<div class="center-align">
+			<%= will_paginate @comments %>
+		</div>
+	</div>
+</div>

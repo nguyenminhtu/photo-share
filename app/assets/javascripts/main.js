@@ -163,7 +163,7 @@ $(document).on('turbolinks:load', function() {
 
 
 		// edit comment
-		$("body").delegate("button.update-comment", "click", function (e) {
+		$(document).delegate("button.update-comment", "click", function (e) {
 			e.preventDefault();
 
 			var id_image = $(this).attr("id-edit-comment-image");
@@ -252,7 +252,125 @@ $(document).on('turbolinks:load', function() {
 
 
 		//share facebook
-		
+		$(document).delegate("button.fb-share", "click", function () {
+			FB.ui({
+			  method: 'share',
+			  mobile_iframe: true,
+			  href: 'https://evening-cove-86299.herokuapp.com/images/2',
+			}, function(response){});
+		});
+
+
+
+
+
+		// remove image in admin
+		$(document).delegate("a.admin-remove-image", "click", function (e) {
+			e.preventDefault();
+
+			if (confirm("Are u sure want to delete this image ?")) {
+				var id = $(this).attr("data-id");
+
+				$(this).hide();
+
+				show_spinner();
+
+				$.ajax({
+					url: baseUrl + 'admin/images/' + id,
+					type: 'DELETE',
+					dataType: 'script',
+					success: function () {
+						hide_spinner();
+					},
+					error: function () {
+						hide_spinner();
+					}
+				});
+			}
+		});
+		// remove user in admin
+		$(document).delegate("a.admin-remove-user", "click", function (e) {
+			e.preventDefault();
+
+			if (confirm("Are u sure want to delete this user and all images also all comments ?")) {
+				var id = $(this).attr("data-id");
+
+				$(this).hide();
+
+				show_spinner();
+
+				$.ajax({
+					url: baseUrl + 'admin/users/' + id,
+					type: 'DELETE',
+					dataType: 'script',
+					success: function () {
+						hide_spinner();
+					},
+					error: function () {
+						hide_spinner();
+					}
+				});
+			}
+		});
+		// remove user in admin
+		$(document).delegate("a.admin-remove-comment", "click", function (e) {
+			e.preventDefault();
+
+			if (confirm("Are u sure want to delete this comment ?")) {
+				var id = $(this).attr("data-id");
+
+				$(this).hide();
+
+				show_spinner();
+
+				$.ajax({
+					url: baseUrl + 'admin/comments/' + id,
+					type: 'DELETE',
+					dataType: 'script',
+					success: function () {
+						hide_spinner();
+					},
+					error: function () {
+						hide_spinner();
+					}
+				});
+			}
+		});
+
+
+
+
+
+
+		$(document).delegate("form#form-add-comment", "submit", function (e) {
+			e.preventDefault();
+			$(this).hide();
+			show_spinner();
+
+			var content = $(this).find("textarea[id='icon_prefix2']").val();
+
+			var user_id = $(this).find("input[name='user_id']").val();
+			var image_id = $(this).find("input[name='image_id']").val();
+
+			$.ajax({
+				url: baseUrl + 'images/' + image_id + '/comments',
+				type: 'POST',
+				dataType: 'script',
+				data: {
+					content: content,
+					user_id: user_id,
+					image_id: image_id
+				},
+				success: function () {
+					$("textarea#icon_prefix2").val(' ');
+					hide_spinner();
+				},
+				error: function () {
+					$("textarea#icon_prefix2").val(' ');
+					hide_spinner()
+				}
+			});
+		});
 
 
 

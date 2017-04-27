@@ -1,0 +1,100 @@
+<div class="row">
+	<div class="col m12">
+		<table class="hoverable centered highlight white bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>User</th>
+					<th>Description</th>
+					<th>Comments</th>
+					<th>Image</th>
+					<th>Created At</th>
+					<th colspan=2>Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @images.each do |image| %>
+
+					<tr id="admin_image_<%= image.id %>">
+						<td><%= image.id %></td>
+						<td><%= image.title %></td>
+						<td><% if image.user %> <%= image.user.name %> <% end %></td>
+						<td><a href="#view-description-<%= image.id %>"><%= truncate(image.description, length: 20) %></a></td>
+						<td><a href="#view-comment-<%= image.id %>"><%= pluralize(image.comments.count, "comment") %></a></td>
+						<td><%= image_tag(image.picture.url, alt: image.title, size: '100x100', class: 'materialboxed') %></td>
+						<td><%= time_ago_in_words(image.created_at) %> ago</td>
+						<td><a href="#admin_image_<%= image.id %>" class="btn btn-flat blue white-text">Show</a></td>
+						<td>
+							<a data-id="<%= image.id %>" href="javascript:void(0)" class="btn waves-effect waves-dark red right admin-remove-image">Remove</a>
+							<%= render "layouts/spinner" %>
+						</td>
+					</tr>
+
+					<!-- modal to show image -->
+					<div id="admin_image_<%= image.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <h4><%= image.title %></h4>
+						        <p>By: <strong><%= image.user.name %></strong> <span class="right"><%= time_ago_in_words(image.created_at) %> ago</span></p>
+						        <div class="clearfix"></div>
+						        <div class="card-panel">
+						        	<%= image_tag(image.picture.url, style: 'width: 100%; height: 300px;', class: 'materialboxed') %>
+						        </div>
+						        <p><%= image.description.html_safe %></p>
+
+						        <a href="javascript:void(0)" class="like-image btn waves-effect waves-light" id-like="<%= image.id %>">
+							        <span id="image_<%= image.id %>"><%= image.get_upvotes.size %></span>
+							        <span><i class="material-icons">thumb_up</i></span>
+							    </a>
+
+						        <a href="javascript:void(0)" class="dislike-image btn waves-effect waves-light" id-dislike="<%= image.id %>">
+						          <span id="dislike_image_<%= image.id %>"><%= image.get_downvotes.size %></span>
+						          <i class="material-icons">thumb_down</i>
+						    	</a>
+
+
+						    	<a data-id="<%= image.id %>" href="javascript:void(0)" class="btn waves-effect waves-dark red right admin-remove-image">Remove</a>
+						    	<div class="clearfix"></div>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view image -->
+
+
+					<!-- modal to show comment -->
+					<div id="view-comment-<%= image.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <%= render image.comments.order("created_at DESC") %>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view comment -->
+
+
+					<!-- modal to show comment -->
+					<div id="view-description-<%= image.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <%= image.description.html_safe %>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view comment -->
+
+				<% end %>
+			</tbody>
+		</table>
+		<div class="center-align">
+			<%= will_paginate @images %>
+		</div>
+	</div>
+</div>

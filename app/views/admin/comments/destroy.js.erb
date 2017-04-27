@@ -1,0 +1,5 @@
+$("tr#admin_comment_"+<%= params[:id] %>).hide('slow');
+
+$(".modal").modal("close");
+
+$("div#view-content-"+<%= params[:id] %>).remove();

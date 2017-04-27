@@ -44,12 +44,7 @@ main {
 
 div#main .card .card-image img{height: 230px !important;}
 
-$size: 44px;
-
-.social-share-button {
-  .ssb-icon {
-    background-size: $size $size;
-    height: $size;
-    width: $size;
-  }
+.pagination a li{padding: 10px 10px 0px 10px; margin-bottom: 5px !important;}
+.pagination a li.active {
+  color: #fff !important;
 }

@@ -11,6 +11,7 @@ class ImagesController < ApplicationController
 		end
 		@arr.push(current_user.id)
 		@count = Image.all.where(user_id: @arr).order("created_at DESC").count
+		# debugger
 		if @count >= 9
 			@images = Image.all.where(user_id: @arr).order("created_at DESC").limit(9)
 		else

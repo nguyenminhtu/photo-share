@@ -3,14 +3,17 @@ class CommentsController < ApplicationController
 
 	def create
 		@image = Image.find(params[:image_id])
-		@comment = @image.comments.build(comment_params)
+		@comment = @image.comments.new
+		@comment.content = params[:content]
 		@comment.image = @image
 		@comment.user = current_user
-		if @comment.save
-			redirect_to image_path(@image, anchor: "comment_id_#{@comment.id}")
-			flash[:success] = "Comment was added successfully"
-		else
-			render 'new'
+		respond_to do |format|
+			if @comment.save
+				format.js
+			else
+				format.html { render 'form' }
+				flash[:error] = "An error has occured when post comment. Sorry for this inconvenience !"
+			end
 		end
 	end
 

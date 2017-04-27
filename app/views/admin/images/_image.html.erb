@@ -1,0 +1,28 @@
+<div class="col m4 l4 s12 center-align image-record" style="height: 420px; margin-top: 20px; margin-bottom: 12px;" data-id="<%= image.id %>">
+	<div class="card z-depth-4 hoverable">
+    <div class="card-content">
+      <strong class="left"><%= link_to image.user.name, user_path(image.user) %></strong>
+      <small class="right" style="margin-top: 1px;"><%= time_ago_in_words(image.created_at) %> ago</small>
+      <div class="clearfix"></div>
+    </div>
+		<div class="card-image">
+      <%= link_to image_tag(image.picture.url), image_path(image) if image.picture.url  %>
+    </div>
+    <div class="card-content">
+      <p class="center-align"><%= image.title %></p>
+    </div>
+    <div class="card-action">
+      <a href="javascript:void(0)" class="like-image" id-like="<%= image.id %>">
+        <span id="image_<%= image.id %>"><%= image.get_upvotes.size %></span>
+        <span><i class="material-icons">thumb_up</i></span>
+      </a>
+
+        <a href="javascript:void(0)" class="dislike-image" id-dislike="<%= image.id %>">
+          <span id="dislike_image_<%= image.id %>"><%= image.get_downvotes.size %></span>
+          <i class="material-icons">thumb_down</i>
+        </a>
+
+        <%= link_to pluralize(image.comments.count, "comment"), image_path(image, anchor: "comment_#{image.id}") %>
+    </div>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="row">
+	<div class="col m12">
+		<table class="hoverable centered highlight white bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Images</th>
+					<th>Comments</th>
+					<th>Joined At</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @users.each do |user| %>
+
+					<tr id="admin_user_<%= user.id %>">
+						<td><%= user.id %></td>
+						<td><%= user.name %></td>
+						<td><%= user.email %></td>
+						<td><a href="#view-image-<%= user.id %>"><%= pluralize(user.images.count, "image") %></a></td>
+						<td><a href="#view-comment-<%= user.id %>"><%= pluralize(user.comments.count, "comment") %></a></td>
+						<td><%= time_ago_in_words(user.created_at) %> ago</td>
+						<td>
+							<a data-id="<%= user.id %>" href="javascript:void(0)" class="btn waves-effect waves-dark red admin-remove-user">Remove</a>
+							<%= render "layouts/spinner" %>
+						</td>
+					</tr>
+
+
+					<!-- modal to show comment -->
+					<div id="view-comment-<%= user.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <%= render user.comments.order("created_at DESC") %>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view comment -->
+
+
+					<!-- modal to show image -->
+					<div id="view-image-<%= user.id %>" class="modal">
+					    <div class="modal-content">
+
+							<div class="row">
+						        <%= render user.images.order("created_at DESC") %>
+						    </div>
+
+					    </div>
+					</div>
+					<!-- end modal for view image -->
+
+				<% end %>
+			</tbody>
+		</table>
+		<div class="center-align">
+			<%= will_paginate @users %>
+		</div>
+	</div>
+</div>

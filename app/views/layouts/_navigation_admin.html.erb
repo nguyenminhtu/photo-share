@@ -1,0 +1,25 @@
+<div class="navbar-fixed">
+	<nav class="nav-border">
+		<div class="nav-wrapper">
+			<div class="">
+				<div class="row">
+					<div class="">
+						<%= link_to "Admin Dashboard", admin_root_path, class: 'brand-logo' %>	
+					</div>
+
+					<div class="">
+						<ul id="nav-mobile" class="right hide-on-med-and-down">
+							<li><%= link_to "Client site", root_path %></li>
+							<li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= current_user.name %><i class="material-icons right">arrow_drop_down</i></a></li>
+							<ul id="dropdown1" class="dropdown-content">
+								<li><%= link_to "Profile", my_profile_path %></li>
+								<li><%= link_to "Settings", edit_user_registration_path %></li>
+								<li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+							</ul>
+						</ul>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
