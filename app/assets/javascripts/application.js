@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require materialize-sprockets
 //= require turbolinks
-//= require_tree .
+// = require_tree .
 
 function show_spinner() {
 	$("#spinner").show();
