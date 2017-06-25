@@ -11,7 +11,7 @@
     <div class="card-content">
       <p class="center-align"><%= image.title %></p>
     </div>
-    <div class="card-action">
+    <div class="card-action center-align">
       <a href="javascript:void(0)" class="like-image" id-like="<%= image.id %>">
         <span id="image_<%= image.id %>"><%= image.get_upvotes.size %></span>
         <span><i class="material-icons">thumb_up</i></span>
@@ -23,6 +23,17 @@
         </a>
 
         <%= link_to pluralize(image.comments.count, "comment"), image_path(image, anchor: "comment_#{image.id}") %>
+
+        <br>
+        <p class="center-align" id="status-vote-<%= image.id %>">
+          <% if image.get_upvotes.voters.include? current_user %>
+            Your liked this
+          <% elsif image.get_downvotes.voters.include? current_user %>
+            You disliked this
+          <% else %>
+            Let's vote for this image
+          <% end %>
+        </p>
     </div>
 	</div>
 </div>

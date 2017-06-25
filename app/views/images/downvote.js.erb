@@ -1,2 +1,8 @@
 $("span#dislike_image_"+<%= @id %>).html(<%= @image.get_downvotes.size %>);
 $("span#image_"+<%= @id %>).html(<%= @image.get_upvotes.size %>);
+
+<% if @image.get_downvotes.voters.include? current_user %>
+	$("p#status-vote-"+<%= @id %>).html("You disliked this");
+<% else %>
+	$("p#status-vote-"+<%= @id %>).html("Let's vote for this image");
+<% end %>

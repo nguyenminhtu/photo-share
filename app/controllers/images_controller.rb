@@ -69,18 +69,26 @@ class ImagesController < ApplicationController
 	end
 
 	def upvote
-		@image.upvote_by current_user
+		if @image.get_upvotes.voters.include? current_user
+			@vote = Vote.where(votable_id: @image.id).where(voter_id: current_user.id)
+			@vote.destroy_all
+		else
+			@image.upvote_by current_user
+		end
 		@id = @image.id
-		# debugger
 		respond_to do |format|
 			format.js
 		end
 	end
 
 	def downvote
-		@image.downvote_from current_user
+		if @image.get_downvotes.voters.include? current_user
+			@vote = Vote.where(votable_id: @image.id).where(voter_id: current_user.id)
+			@vote.destroy_all
+		else
+			@image.downvote_from current_user
+		end
 		@id = @image.id
-		# debugger
 		respond_to do |format|
 			format.js
 		end
