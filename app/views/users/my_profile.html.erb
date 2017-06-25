@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col m12 s12 center-align">
 		<p><strong>Email: </strong><%= current_user.email %></p>
-		<p><%= pluralize(current_user.images.count, "image") %> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <%= pluralize(current_user.friends.count, "following") %></p>
+		<p><%= pluralize(current_user.images.count, "image") %> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <%= @following %> following &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; <%= @followers %> followers</p>
 		<p><strong>Name: </strong><%= current_user.name %></p>
 	</div>
 	<hr>

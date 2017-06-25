@@ -11,3 +11,4 @@ $("tr#friend_"+<%= params[:id] %>).remove();
 $("button#unfollow-user").hide();
 var id = <%= params[:id] %>;
 $("span.right").html("<button class='btn waves-effect waves-dark' id-follow='"+id+"' id='follow-user' type='button'>Follow</button>");
+swal("Nice", "You have unfollowed now", "success");

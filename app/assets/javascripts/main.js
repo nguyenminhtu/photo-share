@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
-	// var baseUrl = "http://localhost:3000/";
-	var baseUrl = "https://evening-cove-86299.herokuapp.com/";
+	var baseUrl = "http://localhost:3000/";
+	// var baseUrl = "https://evening-cove-86299.herokuapp.com/";
 	$(document).ready(function () {
 		$('.modal').modal();
 
@@ -76,10 +76,23 @@ $(document).on('turbolinks:load', function() {
 
 		//unfollow function
 		$("body").delegate("a#unfollow", "click", function (e) {
+			var me = $(this);
 			e.preventDefault();
 
-			if (confirm("Are you sure ?")) {
-				var id = $(this).attr('id-friend');
+			swal({
+			  title: "Are you sure?",
+			  text: "You will not be able to follow this user!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes, delete it!",
+			  cancelButtonText: "No, cancel plx!",
+			  closeOnConfirm: true,
+			  closeOnCancel: false
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+			  	var id = me.attr('id-friend');
 
 				$.ajax({
 					type: 'DELETE',
@@ -90,13 +103,30 @@ $(document).on('turbolinks:load', function() {
 					error: function () {
 					}
 				});
-			};
+			  } else {
+			    swal("Cancelled", "Your friend is safe :)", "error");
+			  }
+			});
+
 		});
 		$("body").delegate("button#unfollow-user", "click", function (e) {
+			var me = $(this);
 			e.preventDefault();
 
-			if (confirm("Are you sure ?")) {
-				var id = $(this).attr('id-unfollow');
+			swal({
+			  title: "Are you sure?",
+			  text: "You will not be able to follow this user",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes, delete it!",
+			  cancelButtonText: "No, cancel plx!",
+			  closeOnConfirm: true,
+			  closeOnCancel: false
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+			  	var id = me.attr('id-unfollow');
 
 				$.ajax({
 					type: 'DELETE',
@@ -107,7 +137,10 @@ $(document).on('turbolinks:load', function() {
 					error: function () {
 					}
 				});
-			};
+			  } else {
+			    swal("Cancelled", "Your friend is safe :)", "error");
+			  }
+			});
 		});
 
 
@@ -141,11 +174,24 @@ $(document).on('turbolinks:load', function() {
 
 		//delete comment
 		$("body").delegate("a.delete-comment", "click", function (e) {
+			var me = $(this);
 			e.preventDefault();
 
-			if (confirm("Are u sure want to delete this comment ?")) {
-				var id_comment = $(this).attr("id-delete-comment");
-				var id_post = $(this).attr("id-delete-post");
+			swal({
+			  title: "Are you sure?",
+			  text: "You will not be able to recover this comment!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes, delete it!",
+			  cancelButtonText: "No, cancel plx!",
+			  closeOnConfirm: true,
+			  closeOnCancel: false
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+			  	var id_comment = me.attr("id-delete-comment");
+				var id_post = me.attr("id-delete-post");
 
 				$.ajax({
 					type: "DELETE",
@@ -156,8 +202,54 @@ $(document).on('turbolinks:load', function() {
 					error: function () {
 					}
 				});
-			}
+			  } else {
+			    swal("Cancelled", "Your friend is safe :)", "error");
+			  }
+			});
+
 		});
+
+
+
+
+
+		//delete image
+		$("body").delegate("a.delete-image", "click", function (e) {
+			var me = $(this);
+			e.preventDefault();
+
+			swal({
+			  title: "Are you sure?",
+			  text: "You will not be able to recover this image!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes, delete it!",
+			  cancelButtonText: "No, cancel plx!",
+			  closeOnConfirm: true,
+			  closeOnCancel: false
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+			  	var id = me.attr("data-id");
+
+				$.ajax({
+					type: "DELETE",
+					url: baseUrl + "images/" + id,
+					dataType: 'script',
+					success: function () {
+					},
+					error: function () {
+					}
+				});
+			  } else {
+			    swal("Cancelled", "Your friend is safe :)", "error");
+			  }
+			});
+
+		});
+
+
 
 
 
@@ -251,17 +343,6 @@ $(document).on('turbolinks:load', function() {
 
 
 
-		//share facebook
-		$(document).delegate("button.fb-share", "click", function () {
-			FB.ui({
-			  method: 'share',
-			  mobile_iframe: true,
-			  href: 'https://evening-cove-86299.herokuapp.com/images/2',
-			}, function(response){});
-		});
-
-
-
 
 
 		// remove image in admin
@@ -341,7 +422,7 @@ $(document).on('turbolinks:load', function() {
 
 
 
-
+		// function for add new comment
 		$(document).delegate("form#form-add-comment", "submit", function (e) {
 			e.preventDefault();
 			$(this).hide();
@@ -370,6 +451,23 @@ $(document).on('turbolinks:load', function() {
 					hide_spinner()
 				}
 			});
+		});
+
+
+
+
+
+		//auto complate search box
+		var countries = [
+		   { value: 'Andorra', data: 'AD' },
+		   { value: 'Zimbabwe', data: 'ZZ' }
+		];
+
+		$('input#search').autocomplete({
+		    lookup: countries,
+		    onSelect: function (suggestion) {
+		        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+		    }
 		});
 
 

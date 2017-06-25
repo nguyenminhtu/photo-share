@@ -31,13 +31,53 @@
 	            <br>
 	            <%= link_to "Back", :back, class: 'btn waves-effect waves-dark center-align' %>
 
-	            <div class="clearfix"></div>
-
 
 
 	            <% if current_user and (@image.user == current_user) %>
-	            	<%= link_to "Delete", image_path(@image), method: :delete, data: { confirm: 'Are you sure want to delete this picture ?' }, class: 'btn waves-effect waves-dark red right' %>
-					<%= link_to "Edit", edit_image_path(@image), class: 'btn waves-effect waves-dark right yellow' %>
+	            	<a href="javascript:void(0)" class="btn waves-effect waves-dark right red delete-image" data-id="<%= @image.id %>">Delete</a>
+					<%#= link_to "Edit", edit_image_path(@image), class: 'btn waves-effect waves-dark right yellow' %>
+					<a href="#edit-image-<%= @image.id %>" class="btn waves-effect waves-dark right yellow">Edit</a>
+
+					<div class="modal" id="edit-image-<%= @image.id %>">
+						<div class="modal-content">
+							<h3 class="center-align">Edit Image <small><i><%= @image.title %></i></small></h3>
+							<hr>
+
+							<div class="input-field">
+								<label for="current-image">Current Image</label>
+								<%= image_tag(@image.picture.url, class: 'materialboxed image-edit', id: 'current-image') if @image.picture? %>
+							</div>
+							<%= form_for @image, html: { multipart: true } do |f| %>
+
+								<%= render "shared/errors", obj: @image %>
+
+								<div class="">
+									<%= f.label :title %>
+									<%= f.text_field :title, autofocus: true, required: true %>
+								</div>
+
+								<div class="">
+									<%= f.label :description %>
+									<%= f.text_area :description, required: true, rows: 20, class: 'materialize-textarea' %>
+								</div>
+
+								<div class="file-field input-field">
+							      <div class="btn">
+							        <span>Image</span>
+							        <%= f.file_field :picture %>
+							      </div>
+							      <div class="file-path-wrapper">
+							        <input class="file-path validate" type="text">
+							      </div>
+							    </div>
+
+								<div class="input-field">
+									<%= f.submit(@image.new_record? ? "Create" : "Update", class: 'btn waves-effect waves-dark') %>
+								</div>
+
+							<% end %>
+						</div>
+					</div>
 	            <% end %>
 
 	        </div>
@@ -49,27 +89,19 @@
 		        		<hr>
 		        		<br>
 		        		<%= render "comments/form" %>
-		        		<% if @comments.any? %>
-							
-							<div id="comment_append_<%= @image.id %>">
-								<%= render @comments %>
-							</div>
+		        		<div id="comment_append_<%= @image.id %>">
+							<%= render @comments %>
+						</div>
 
-							<% if @image.comments.count > 10 %>
+						<% if @image.comments.count > 10 %>
 
-								<br>
-				        		<div class="center-align">
-				        			<button type="button" class="btn waves-effect waves-light green loadmore-comment" id-image-comment="<%= @image.id %>">Load more</button>
-				        			<%= render "layouts/spinner" %>
-				        		</div>
+							<br>
+			        		<div class="center-align">
+			        			<button type="button" class="btn waves-effect waves-light green loadmore-comment" id-image-comment="<%= @image.id %>">Load more</button>
+			        			<%= render "layouts/spinner" %>
+			        		</div>
 
-							<% end %>
-
-						<% else %>
-
-							<h5 style="text-decoration: underline;" class="center-align">Post the first comment</h5>
-
-		        		<% end %>
+						<% end %>
 		        	</div>
 	        	</div>
 	        </div>

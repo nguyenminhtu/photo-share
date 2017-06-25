@@ -1,3 +1,4 @@
 $("button#follow-user").hide();
 var id = <%= @friend.id %>;
 $("span.right").html("<button class='btn waves-effect waves-dark' id-unfollow='"+id+"' id='unfollow-user' type='button'>Unfollow</button>");
+swal("Nice", "Now you have followed", "success");

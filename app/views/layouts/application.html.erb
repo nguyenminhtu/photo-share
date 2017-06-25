@@ -23,6 +23,46 @@
 	<%= render "layouts/message" %>
 
 	<%= yield %>
+
+  
+  <div class="modal" id="new-image">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col m10 offset-m1">
+          <h4 class="center-align">Post Image</h4>
+          <%= form_tag '/images', method: :post, multipart: true do %>
+
+            <div class="input-field">
+              <input type="text" name="image[title]" id="title" autofocus="true" required="true" placeholder="Title...">
+              <label for="title"></label>
+            </div>
+
+            <div class="input-field">
+              <textarea name="image[description]" class="materialize-textarea" id="description" required="true" placeholder="Description..."></textarea>
+              <label for="description"></label>
+            </div>
+
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>File</span>
+                <input type="file" name="image[picture]">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+
+            <div class="input-field">
+              <button type="submit" class="btn waves-effect waves-light dark-blue">Create</button>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 	<div class="fixed-action-btn horizontal">
 	    <a class="btn-floating waves-effect waves-light red back-to-top">
 	      <i class="large material-icons">keyboard_arrow_up</i>
@@ -33,7 +73,7 @@
 <%= render "layouts/footer" %>
 
 
-<%= debug(params) if Rails.env.development? %>
+<%#= debug(params) if Rails.env.development? %>
 
 </body>
 </html>

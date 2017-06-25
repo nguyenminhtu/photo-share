@@ -7,7 +7,7 @@
 					<p><small><em><%= time_ago_in_words(comment.created_at) %> ago</em></small></p>
 					<p id="comment_edit_<%= comment.id %>" style="margin-top: 7px;"><%= comment.content %></p>
 				</div>
-				<% if comment.user == current_user %>
+				<% if (comment.user == current_user) and (comment.user.id != 1) %>
 
 					<div class="right">
 						<a href="#modal_comment_<%= comment.id %>" class="modal-trigger btn waves-effect waves-light yellow">
@@ -18,7 +18,13 @@
 						</a>
 					</div>
 
-				<% elsif comment.image.user == current_user %>
+				<% elsif (comment.image.user == current_user) and (comment.user.id != 1) %>
+
+					<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment right" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
+							<i class="material-icons">delete</i>
+						</a>
+
+				<% elsif current_user.id == 1 %>
 
 					<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment right" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
 							<i class="material-icons">delete</i>

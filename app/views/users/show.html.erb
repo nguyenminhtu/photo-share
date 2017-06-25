@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col m6 offset-m3 s12 center-align">
 		<p><strong>Email: </strong><%= @user.email %></p>
-		<p><%= pluralize(@images.count, "image") %> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <%= pluralize(@user.friends.count, "follower") %></p>
+		<p><%= pluralize(@images.count, "image") %> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <%= @following %> following &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; <%= @followers %> followers</p>
 		<p>
 			<span class="left"><strong>Name: </strong><%= @user.name %></span>
 			<% if current_user.friendships.where(friend_id: @user.id).size == 0 %>

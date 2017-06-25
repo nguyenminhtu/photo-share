@@ -37,7 +37,8 @@ class ImagesController < ApplicationController
 			redirect_to root_path
 			flash[:success] = "Image was created successfully"
 		else
-			render 'new'
+			redirect_to root_path
+			flash[:success] = "Image could not created due to system error"
 		end
 	end
 
@@ -57,9 +58,14 @@ class ImagesController < ApplicationController
 	end
 
 	def destroy
-		@image.destroy
-		redirect_to my_profile_path
-		flash[:success] = "Image was deleted successfully"
+		respond_to do |format|
+			if @image.destroy
+				format.js
+			else
+				redirect_to :back
+				flash[:error] = 'Image could not be removed due to system error !'
+			end
+		end
 	end
 
 	def upvote

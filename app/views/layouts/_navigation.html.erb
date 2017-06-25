@@ -11,7 +11,8 @@
 						<ul id="nav-mobile" class="right hide-on-med-and-down">
 							<% if current_user %>
 
-								<li><%= link_to "Post Image", new_image_path %></li>
+								<!-- <li><%#= link_to "Post Image", new_image_path %></li> -->
+								<li><a href="#new-image">Post Image</a></li>
 								<li><%= link_to "My Friends", my_friends_path %></li>
 								<% if is_admin? %>
 									<li><%= link_to "Admin", admin_root_path %></li>

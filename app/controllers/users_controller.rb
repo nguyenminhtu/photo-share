@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 	def my_profile
 		@user = current_user
 		@count = @user.images.order("created_at DESC").count
+		@following = Friendship.where("user_id = " + current_user.id.to_s).count
+		@followers = Friendship.where("friend_id = " + current_user.id.to_s).count
 		if @count > 9
 			@images = @user.images.order("created_at DESC").limit(9)
 		else
@@ -28,6 +30,8 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@images = @user.images
+		@following = Friendship.where("user_id = " + @user.id.to_s).count
+		@followers = Friendship.where("friend_id = " + @user.id.to_s).count
 	end
 
 	def add_friend
