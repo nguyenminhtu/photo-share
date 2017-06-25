@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
-	// var baseUrl = "http://localhost:3000/";
-	var baseUrl = "https://evening-cove-86299.herokuapp.com/";
+	var baseUrl = "http://localhost:3000/";
+	// var baseUrl = "https://evening-cove-86299.herokuapp.com/";
 	$(document).ready(function () {
 		$('.modal').modal();
 
@@ -242,8 +242,6 @@ $(document).on('turbolinks:load', function() {
 					error: function () {
 					}
 				});
-			  } else {
-			    swal("Cancelled", "Your friend is safe :)", "error");
 			  }
 			});
 

@@ -12,7 +12,9 @@ class CommentsController < ApplicationController
 				@all_comment = Image.find(params[:image_id]).comments.count
 				format.js
 			else
-				format.js
+				format.text {
+					render :text => "Sorry for that"
+				}
 				flash[:error] = "An error has occured when post comment. Sorry for this inconvenience !"
 			end
 		end

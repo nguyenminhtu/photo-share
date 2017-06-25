@@ -6,9 +6,11 @@
 					<p>
 						<strong><%= comment.user.name %></strong>
 						&nbsp;&nbsp;
+						<small id="state-comment-<%= comment.id %>"><i>
 						<% if comment.updated_at != comment.created_at %>
-							<small><i>(Edited)</i></small>
+							(Edited)
 						<% end %>
+						</i></small>
 					</p>
 					<p><small><em><%= time_ago_in_words(comment.created_at) %> ago</em></small></p>
 					<p id="comment_edit_<%= comment.id %>" style="margin-top: 7px;"><%= comment.content %></p>

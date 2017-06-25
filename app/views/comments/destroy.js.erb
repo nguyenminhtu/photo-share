@@ -1,3 +1,3 @@
 $("div#comment_id_"+<%= @comment.id %>).hide('slow');
 $("span#count-comment-<%= params[:image_id] %>").html(<%= @all_comment %>);
-swal("Nice", "Your comment was deleted successfully", "success");
+Materialize.toast("Your comment was deleted successfully", 3000);

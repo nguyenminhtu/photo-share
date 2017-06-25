@@ -1,3 +1,4 @@
 $("p#comment_edit_"+<%= @comment.id %>).html("<%= @comment.content %>");
 $("div#modal_comment_"+<%= @comment.id %>).modal('close');
-swal("Nice", "Your comment was updated successfully", "success");
+$("small#state-comment-"+<%= @comment.id %>).html("(Edited)");
+Materialize.toast("Your comment was updated successfully", 3000);
