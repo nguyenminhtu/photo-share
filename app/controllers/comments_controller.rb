@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 			if @comment.save
 				format.js
 			else
-				format.html { render 'form' }
+				format.js
 				flash[:error] = "An error has occured when post comment. Sorry for this inconvenience !"
 			end
 		end
