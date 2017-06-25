@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
 		@comment.user = current_user
 		respond_to do |format|
 			if @comment.save
+				@all_comment = Image.find(params[:image_id]).comments.count
 				format.js
 			else
 				format.js
@@ -28,6 +29,7 @@ class CommentsController < ApplicationController
 
 	def destroy
 		@comment.destroy
+		@all_comment = Image.find(params[:image_id]).comments.count
 		respond_to do |format|
 			format.js
 		end

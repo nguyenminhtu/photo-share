@@ -1,4 +1,4 @@
 $("form#form-add-comment").show();
 $("div#comment_append_<%= params[:image_id] %>").prepend('<%= j(render(:partial => @comment)) %>');
-$("span#count-comment-<%= params[:image_id] %>").html(parseInt($("span#count-comment-<%= params[:image_id] %>").html()) + 1);
+$("span#count-comment-<%= params[:image_id] %>").html(<%= @all_comment %>);
 $(".modal").modal();
