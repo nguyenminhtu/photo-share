@@ -3,11 +3,17 @@
 		<% if comment.user && comment.created_at && comment.content && comment.image.user %>
 			<div class="card-content comment-record" id="comment_id_<%= comment.id %>" data-id="<%= comment.id %>">
 				<div class="left">
-					<p><strong><%= comment.user.name %></strong></p>
+					<p>
+						<strong><%= comment.user.name %></strong>
+						&nbsp;&nbsp;
+						<% if comment.updated_at != comment.created_at %>
+							<small><i>(Edited)</i></small>
+						<% end %>
+					</p>
 					<p><small><em><%= time_ago_in_words(comment.created_at) %> ago</em></small></p>
 					<p id="comment_edit_<%= comment.id %>" style="margin-top: 7px;"><%= comment.content %></p>
 				</div>
-				<% if (comment.user == current_user) and (comment.user.id != 1) %>
+				<% if (comment.user == current_user) %>
 
 					<div class="right">
 						<a href="#modal_comment_<%= comment.id %>" class="modal-trigger btn waves-effect waves-light yellow">
@@ -18,19 +24,15 @@
 						</a>
 					</div>
 
-				<% elsif (comment.image.user == current_user) and (comment.user.id != 1) %>
-
-					<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment right" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
-							<i class="material-icons">delete</i>
-						</a>
-
-				<% elsif current_user.id == 1 %>
+				<% elsif (comment.image.user == current_user) %>
 
 					<a href="javascript:void(0)" class="btn waves-effect waves-dark red delete-comment right" id-delete-comment="<%= comment.id %>" id-delete-post="<%= comment.image.id %>">
 							<i class="material-icons">delete</i>
 						</a>
 
 				<% end %>
+
+
 				<div class="clearfix"></div>
 			</div>
 
