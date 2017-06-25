@@ -17,13 +17,6 @@
 //= require turbolinks
 //= require_tree .
 
-window.onload=function(){
-     $(function(){
-         if(window.location.protocol==="https:")
-             window.location.protocol="http";
-     });
- }
-
 function show_spinner() {
 	$("#spinner").show();
 }
